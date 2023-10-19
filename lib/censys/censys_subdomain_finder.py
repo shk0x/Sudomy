@@ -70,7 +70,7 @@ def save_subdomains_to_file(subdomains, output_file):
         sys.stderr.write('[-] Unable to write to output file %s : %s\n' % (output_file, e))
 
 def main(domain, output_file, censys_api_id, censys_api_secret, limit_results):
-    print('[*] Searching Censys for subdomains of %s' % domain)
+    #print('[*] Searching Censys for subdomains of %s' % domain)
     start_time = time.time()
     subdomains = find_subdomains(domain, censys_api_id, censys_api_secret, limit_results)
     subdomains = filter_subdomains(domain, subdomains)

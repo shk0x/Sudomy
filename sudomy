@@ -371,7 +371,7 @@ ARG_PARS_LIST() {
 source ${Engine_Shodan}
 source ${Engine_VirusTotal}
 source ${Engine_Censys}
-source ${Engine_Certspotter}
+#source ${Engine_Certspotter}
 source ${Engine_BinaryEdge}
 source ${Engine_Hackertarget}
 source ${Engine_Threatminer}
@@ -380,9 +380,9 @@ source ${Engine_Spyse}
 source ${Engine_BufferOver}
 source ${Engine_Threatcrowd}
 source ${Engine_Dnsdumpster}
-source ${Engine_Riddler}
+#source ${Engine_Riddler}
 source ${Engine_Webarchive}
-source ${Engine_SecurityTrails}
+#source ${Engine_SecurityTrails}
 source ${Engine_RapidDNS}
 source ${Engine_AlienVault}
 source ${Engine_CommonCrawl}
@@ -673,7 +673,7 @@ elif
 
   [[ ${SOURCE} == false ]]
 then
-  args_source=(SHODAN WEBARCHIVE DNSDUMPSTER VIRUSTOTAL CERTSPOTTER CERTSH BINARYEDGE SECURITY_TRAILS CENSYS THREATMINER BUFFEROVER HACKERTARGET SPYSE THREATCROWD RIDDLER RAPIDDNS ALIENVAULT COMMONCRAWL URLSCAN DNSDB RISKIQ FBCERT)
+  args_source=(SHODAN WEBARCHIVE DNSDUMPSTER VIRUSTOTAL CERTSH BINARYEDGE CENSYS THREATMINER BUFFEROVER HACKERTARGET SPYSE THREATCROWD RAPIDDNS ALIENVAULT COMMONCRAWL URLSCAN DNSDB RISKIQ FBCERT)
   for i in "${!args_source[@]}"; do
     "${args_source[i]}" &
   done
