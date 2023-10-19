@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from censys.search import CensysCertificates
+from censys.search import CensysCerts
 import censys
 import sys
 import cli
@@ -12,17 +12,20 @@ NON_COMMERCIAL_API_LIMIT = 1000
 # Finds subdomains of a domain using Censys API
 def find_subdomains(domain, api_id, api_secret, limit_results):
     try:
-        censys_certificates = CensysCertificates(api_id=api_id, api_secret=api_secret)
-        certificate_query = 'parsed.names: %s' % domain
+        censys_certificates = CensysCerts(api_id=api_id, api_secret=api_secret)
+        certificate_query = 'names: %s' % domain
         if limit_results:
-            certificates_search_results = censys_certificates.search(certificate_query, fields=['parsed.names'], max_records=NON_COMMERCIAL_API_LIMIT)
+            certificates_search_results = censys_certificates.search(certificate_query, fields=['names'], max_records=NON_COMMERCIAL_API_LIMIT)
         else:
-            certificates_search_results = censys_certificates.search(certificate_query, fields=['parsed.names'])
+            certificates_search_results = censys_certificates.search(certificate_query, fields=['names'])
 
         # Flatten the result, and remove duplicates
         subdomains = []
         for search_result in certificates_search_results:
-            subdomains.extend(search_result['parsed.names'])
+            #print(search_result)
+            for entry in search_result:
+                subdomains.extend(entry['names'])
+        #print(subdomains)
 		
         return set(subdomains)
     except censys.common.exceptions.CensysUnauthorizedException:
@@ -48,7 +51,7 @@ def print_subdomains(domain, subdomains, time_ellapsed):
 
     print('[*] Found %d unique subdomain%s of %s in ~%s seconds\n' % (len(subdomains), 's' if len(subdomains) > 1 else '', domain, str(time_ellapsed)))
     for subdomain in subdomains:
-        print('  - ' + subdomain)
+        print(subdomain)
     
     print('')
 
